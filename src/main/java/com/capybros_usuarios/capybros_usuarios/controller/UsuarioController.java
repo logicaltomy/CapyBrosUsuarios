@@ -32,10 +32,35 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.crearUsuario(u));
     }
 
-    @GetMapping("/{nombreUsuario}")
+    @GetMapping("{buscarPorIdnombreUsuario}")
     public ResponseEntity<Usuario> buscarPorNombre(@PathVariable String nombreUsuario){
+        if (!usuarioService.buscarPorNombre(nombreUsuario).isPresent()){
+            return ResponseEntity.noContent().build();
+        }
         return usuarioService.buscarPorNombre(nombreUsuario)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/buscarPorId/{idUsuario}")
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long idUsuario){
+        if (!usuarioService.buscarPorId(idUsuario).isPresent()){
+            return ResponseEntity.noContent().build();
+        }
+        return usuarioService.buscarPorId(idUsuario)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    //cambiar parcialmente la Id para que cuando lo coloque en el postman lo cambie dependiendo del body
+    @PutMapping("{idUsuario}")
+    public ResponseEntity<Usuario> cambiarEstadoUsuario(@PathVariable Long idUsuario) {
+        return usuarioService.buscarPorId(idUsuario)
+                .map(usuario -> {
+                    usuarioService.cambiarEstadoUsuario(idUsuario);
+                    return ResponseEntity.ok(usuario);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }

@@ -32,4 +32,22 @@ public class UsuarioService {
     public Optional<Usuario> buscarPorNombre(String nombreUsuario){
         return usuarioRepo.findByNombreUsuario(nombreUsuario);
     }
+
+    //Método que busca por id
+    public Optional<Usuario> buscarPorId(Long idUsuario){
+        return usuarioRepo.findByIdUsuario(idUsuario);
+    }
+
+    //Cuando el usuario quiera eliminar su cuenta, su estado se cambiará a false
+    //Cambiar parcialmente la Id para que cuando lo coloque en el postman lo cambie dependiendo del body
+    public Usuario cambiarEstadoUsuario(Long idUsuario){
+        Optional<Usuario> usuario = buscarPorId(idUsuario);
+        if (usuario.isPresent()){
+            usuario.get().setEstado(false);
+            return usuarioRepo.save(usuario.get());
+        }
+        return null;
+    }
+
+
 }
