@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.time.LocalDateTime;
 
+// Cris estuvo aqui :D
+
 // Este paquete contiene todas las clases que van a estar en la BD
 @Entity
 @Table(name = "usuarios")
