@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import java.util.List;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 // Este paquete contiene todas las clases que van a estar en la BD
 @Entity
@@ -36,8 +35,12 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
+
+    //@OneToMany: indica que un usuario puede tener muchos permisos.
+    //CascadeType.ALL Si yo guardo, edito o borro un usuario, hago lo mismo con sus permisos.
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Permiso> permisos;
+    // Es una lista ya que un usuario puede tener muchos permisos
+    private List<Permiso> permisosList;
 
 
 
