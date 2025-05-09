@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Usuario {
     // La ID será auto-incrementable y la PK
-    // Adding to this; the @Id indicates that it's the PK
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;

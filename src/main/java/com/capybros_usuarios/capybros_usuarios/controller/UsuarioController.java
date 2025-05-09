@@ -14,14 +14,19 @@ import java.util.List;
 @RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
 
+    // Permite que Spring entregue la instancia ya creada para usarla en PostMan
     @Autowired
     private UsuarioService usuarioService;
 
+    // Esto indica que debe traer a todos los usuarios.
+    // Enlaza métodos de Java a rutas de una API REST
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios(){
         return ResponseEntity.ok(usuarioService.listarUsuarios());
     }
 
+    // Puedes crear un usuario
+    //ResponseEntity devuelve una respuesta HTTP
     @PostMapping
     public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario u){
         return ResponseEntity.ok(usuarioService.crearUsuario(u));
